@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class Loginpage extends StatelessWidget {
+class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
+
+  @override
+  State<Loginpage> createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
+  final _userNameController = TextEditingController();
+  String _displayText = "The Display Text";
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +18,7 @@ class Loginpage extends StatelessWidget {
       // backgroundColor: Colors.amberAccent,
       body: SafeArea(
         child: Center(
+            child: SingleChildScrollView(
           child: Container(
             color: Colors.white,
             padding: const EdgeInsets.all(50),
@@ -30,6 +40,7 @@ class Loginpage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
+                    controller: _userNameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'username',
@@ -46,14 +57,20 @@ class Loginpage extends StatelessWidget {
                   ),
                   SizedBox(height: 20), // Add padding of 20 pixels here
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _displayText = _userNameController.text;
+                      });
+                    },
                     child: Text('Click'),
                   ),
+                  SizedBox(height: 20), // Add padding of 20 pixels here
+                  Text(_displayText),
                 ],
               ),
             ),
           ),
-        ),
+        )),
       ),
     );
   }
